@@ -1,0 +1,26 @@
+.result-header { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 0.5px solid var(--border); }
+.result-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.use-case-name { font-size: 20px; font-weight: 500; margin-bottom: 1.5rem; }
+.verdict { display: inline-flex; align-items: center; gap: 10px; padding: 10px 18px; border-radius: 6px; font-weight: 500; font-size: 15px; margin-bottom: 1rem; }
+.verdict.pursue { background: var(--pursue-bg); color: var(--pursue); }
+.verdict.derisk { background: var(--derisk-bg); color: var(--derisk); }
+.verdict.notready { background: var(--notready-bg); color: var(--notready); }
+.verdict-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.pursue .verdict-dot { background: var(--pursue); }
+.derisk .verdict-dot { background: var(--derisk); }
+.notready .verdict-dot { background: var(--notready); }
+.overall-score { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+.overall-score span { font-size: 32px; font-weight: 500; color: var(--text); margin-right: 4px; }
+.dimensions { margin: 1.5rem 0; }
+.dim { padding: 14px 0; border-bottom: 0.5px solid var(--border); }
+.dim:last-child { border-bottom: none; }
+.dim-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.dim-name { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.dim-score { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--text); }
+.bar-bg { height: 3px; background: var(--border); border-radius: 2px; }
+.bar-fill { height: 3px; border-radius: 2px; background: var(--text); transition: width 0.8s cubic-bezier(0.16,1,0.3,1); }
+.dim-rationale { font-size: 13px; color: var(--muted); margin-top: 8px; line-height: 1.6; }
+.rationale-block { background: var(--surface); border: 0.5px solid var(--border); border-radius: 6px; padding: 1.25rem; margin: 1.5rem 0; }
+.rationale-block p { font-size: 14px; line-height: 1.7; color: var(--text); }
+.reset-btn { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); background: none; border: 0.5px solid var(--border); border-radius: 6px; padding: 8px 16px; cursor: pointer; margin-top: 1.5rem; }
+.reset-btn:hover { border-color: var(--text); color: var(--text); }

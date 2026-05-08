@@ -1,0 +1,10 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #F5F3EE; --surface: #FAFAF7; --border: #E2DDD6;
+  --text: #1A1814; --muted: #7A756C;
+  --pursue: #1D6B4A; --pursue-bg: #EAF5EE;
+  --derisk: #8A5C10; --derisk-bg: #FDF3E0;
+  --notready: #8A1F1F; --notready-bg: #FCEAEA;
+  --mono: 'DM Mono', monospace; --sans: 'DM Sans', sans-serif;
+}
+body { font-family: var(--sans); background: var(--bg); color: var(--text); min-height: 100vh; }

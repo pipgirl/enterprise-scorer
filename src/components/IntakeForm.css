@@ -1,0 +1,13 @@
+h1 { font-size: 26px; font-weight: 300; line-height: 1.25; color: var(--text); margin-bottom: 6px; }
+h1 em { font-style: normal; font-weight: 500; }
+.subtitle { font-size: 14px; color: var(--muted); margin-bottom: 2.5rem; line-height: 1.6; }
+.field { margin-bottom: 1.5rem; }
+label { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+input[type=text], textarea, select { width: 100%; font-family: var(--sans); font-size: 14px; color: var(--text); background: var(--surface); border: 0.5px solid var(--border); border-radius: 6px; padding: 10px 14px; outline: none; transition: border-color 0.15s; -webkit-appearance: none; }
+input[type=text]:focus, textarea:focus, select:focus { border-color: var(--text); }
+textarea { resize: vertical; line-height: 1.6; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.submit-btn { width: 100%; padding: 13px; background: var(--text); color: #F5F3EE; border: none; border-radius: 6px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; margin-top: 0.5rem; transition: opacity 0.15s; }
+.submit-btn:hover { opacity: 0.85; }
+.submit-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.error-msg { background: var(--notready-bg); color: var(--notready); font-size: 12px; font-family: var(--mono); padding: 10px 14px; border-radius: 6px; margin-top: 1rem; }
