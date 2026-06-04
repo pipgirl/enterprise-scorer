@@ -1,10 +1,11 @@
 import { useEffect, useRef } from 'react'
+import ComparePanel from './ComparePanel'
 import './ScoreResult.css'
 
 const LABELS = { pursue: 'Pursue', derisk: 'De-risk first', notready: 'Not ready' }
 const CONFIDENCE_LABELS = { high: 'High confidence', medium: 'Medium confidence', low: 'Low confidence' }
 
-export default function ScoreResult({ result, name, onReset }) {
+export default function ScoreResult({ result, name, onReset, history, currentHistoryId }) {
   const barsRef = useRef([])
   useEffect(() => {
     const t = setTimeout(() => {
@@ -50,6 +51,13 @@ export default function ScoreResult({ result, name, onReset }) {
         <div className="result-label" style={{ marginBottom: 8 }}>Recommendation rationale</div>
         <p>{result.rationale}</p>
       </div>
+
+      <ComparePanel
+        currentResult={result}
+        currentName={name}
+        history={history || []}
+        currentId={currentHistoryId}
+      />
 
       <button className="reset-btn" onClick={onReset}>← Score another use case</button>
     </div>

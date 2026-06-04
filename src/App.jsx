@@ -24,6 +24,7 @@ export default function App() {
   const [error, setError] = useState('')
   const [lastSubmittedForm, setLastSubmittedForm] = useState(null)
   const [history, setHistory] = useState(() => loadHistory())
+  const [currentHistoryId, setCurrentHistoryId] = useState(() => loadHistory()[0]?.id || null)
 
   async function handleScore(formData) {
     setLoading(true)
@@ -71,7 +72,9 @@ Respond ONLY with valid JSON, no markdown, no preamble:
       const raw = data?.content?.find(b => b.type === 'text')?.text || ''
       const parsed = parseAndValidateScoreResult(raw)
       setResult(parsed)
-      setHistory(saveAssessment(formData.name, parsed))
+      const updated = saveAssessment(formData.name, parsed)
+      setHistory(updated)
+      setCurrentHistoryId(updated[0].id)
     } catch (e) {
       const isTimeout = e?.name === 'AbortError'
       const message = isTimeout
@@ -96,7 +99,7 @@ Respond ONLY with valid JSON, no markdown, no preamble:
           />
           <HistoryPanel
             history={history}
-            onSelect={(entry) => { setResult(entry.result); setUseCaseName(entry.name) }}
+            onSelect={(entry) => { setResult(entry.result); setUseCaseName(entry.name); setCurrentHistoryId(entry.id) }}
             onClear={() => setHistory([])}
           />
         </>
@@ -110,7 +113,13 @@ Respond ONLY with valid JSON, no markdown, no preamble:
         </div>
       )}
       {result && (
-        <ScoreResult result={result} name={useCaseName} onReset={() => { setResult(null); setError('') }} />
+        <ScoreResult
+          result={result}
+          name={useCaseName}
+          onReset={() => { setResult(null); setError('') }}
+          history={history}
+          currentHistoryId={currentHistoryId}
+        />
       )}
     </div>
   )
