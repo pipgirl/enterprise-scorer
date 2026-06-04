@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './IntakeForm.css'
 
-export default function IntakeForm({ onSubmit, error }) {
+export default function IntakeForm({ onSubmit, onRetry, error }) {
   const [form, setForm] = useState({ name: '', description: '', industry: '', approach: '', risks: '' })
   const set = (field, val) => setForm(f => ({ ...f, [field]: val }))
 
@@ -55,6 +55,11 @@ export default function IntakeForm({ onSubmit, error }) {
         Score this use case →
       </button>
       {error && <div className="error-msg">{error}</div>}
+      {error && onRetry && (
+        <button className="retry-btn" onClick={onRetry}>
+          Retry last score
+        </button>
+      )}
     </div>
   )
 }

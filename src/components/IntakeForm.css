@@ -11,3 +11,5 @@ textarea { resize: vertical; line-height: 1.6; }
 .submit-btn:hover { opacity: 0.85; }
 .submit-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 .error-msg { background: var(--notready-bg); color: var(--notready); font-size: 12px; font-family: var(--mono); padding: 10px 14px; border-radius: 6px; margin-top: 1rem; }
+.retry-btn { width: 100%; padding: 11px; background: transparent; color: var(--text); border: 0.5px solid var(--border); border-radius: 6px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; margin-top: 0.65rem; }
+.retry-btn:hover { border-color: var(--text); }
