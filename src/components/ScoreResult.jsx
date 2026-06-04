@@ -14,8 +14,15 @@ export default function ScoreResult({ result, name, onReset, history, currentHis
     return () => clearTimeout(t)
   }, [result])
 
+  const printedAt = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+
   return (
     <div className="result">
+      <div className="print-header">
+        <span className="print-header-title">Enterprise AI Readiness Scorer</span>
+        <span className="print-header-date">{printedAt}</span>
+      </div>
+
       <div className="result-header">
         <div className="result-label">Readiness assessment</div>
         <div className="use-case-name">{name}</div>
@@ -59,7 +66,10 @@ export default function ScoreResult({ result, name, onReset, history, currentHis
         currentId={currentHistoryId}
       />
 
-      <button className="reset-btn" onClick={onReset}>← Score another use case</button>
+      <div className="result-actions">
+        <button className="reset-btn" onClick={onReset}>← Score another use case</button>
+        <button className="export-btn" onClick={() => window.print()}>Export / Print</button>
+      </div>
     </div>
   )
 }

@@ -28,5 +28,8 @@
 .dim-assumptions { font-size: 12px; color: var(--muted); font-style: italic; line-height: 1.5; }
 .rationale-block { background: var(--surface); border: 0.5px solid var(--border); border-radius: 6px; padding: 1.25rem; margin: 1.5rem 0; }
 .rationale-block p { font-size: 14px; line-height: 1.7; color: var(--text); }
-.reset-btn { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); background: none; border: 0.5px solid var(--border); border-radius: 6px; padding: 8px 16px; cursor: pointer; margin-top: 1.5rem; }
+.result-actions { display: flex; align-items: center; justify-content: space-between; margin-top: 1.5rem; }
+.reset-btn { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); background: none; border: 0.5px solid var(--border); border-radius: 6px; padding: 8px 16px; cursor: pointer; }
 .reset-btn:hover { border-color: var(--text); color: var(--text); }
+.export-btn { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); background: none; border: 0.5px solid var(--text); border-radius: 6px; padding: 8px 16px; cursor: pointer; }
+.export-btn:hover { background: var(--text); color: var(--bg); }

@@ -1,0 +1,76 @@
+@media print {
+  /* Hide all screen-only UI */
+  .wordmark,
+  .reset-btn,
+  .export-btn,
+  .compare-panel,
+  .thinking {
+    display: none !important;
+  }
+
+  /* Clean page setup */
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 12pt;
+  }
+
+  .shell {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .result {
+    padding: 0 !important;
+  }
+
+  /* Force color backgrounds to print */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Print header */
+  .print-header {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1pt solid #ccc;
+  }
+
+  .print-header-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 9pt;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #888;
+  }
+
+  .print-header-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 9pt;
+    color: #888;
+  }
+
+  /* Make bar fills render at their final width */
+  .bar-fill {
+    transition: none !important;
+  }
+
+  /* Avoid page breaks inside dimension blocks */
+  .dim {
+    break-inside: avoid;
+  }
+
+  .rationale-block {
+    break-inside: avoid;
+  }
+}
+
+/* Hide print header on screen */
+.print-header {
+  display: none;
+}
