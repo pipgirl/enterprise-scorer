@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import IntakeForm from './components/IntakeForm'
 import ScoreResult from './components/ScoreResult'
+import HistoryPanel from './components/HistoryPanel'
 import { parseAndValidateScoreResult } from './utils/scoreResultSchema'
+import { loadHistory, saveAssessment } from './utils/history'
 import './App.css'
 
 const ANTHROPIC_MODEL = import.meta.env.VITE_ANTHROPIC_MODEL || 'claude-sonnet-4-6'
@@ -21,6 +23,7 @@ export default function App() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [lastSubmittedForm, setLastSubmittedForm] = useState(null)
+  const [history, setHistory] = useState(() => loadHistory())
 
   async function handleScore(formData) {
     setLoading(true)
@@ -68,6 +71,7 @@ Respond ONLY with valid JSON, no markdown, no preamble:
       const raw = data?.content?.find(b => b.type === 'text')?.text || ''
       const parsed = parseAndValidateScoreResult(raw)
       setResult(parsed)
+      setHistory(saveAssessment(formData.name, parsed))
     } catch (e) {
       const isTimeout = e?.name === 'AbortError'
       const message = isTimeout
@@ -84,11 +88,18 @@ Respond ONLY with valid JSON, no markdown, no preamble:
     <div className="shell">
       <div className="wordmark">Enterprise AI readiness scorer</div>
       {!result && !loading && (
-        <IntakeForm
-          onSubmit={handleScore}
-          onRetry={lastSubmittedForm ? () => handleScore(lastSubmittedForm) : null}
-          error={error}
-        />
+        <>
+          <IntakeForm
+            onSubmit={handleScore}
+            onRetry={lastSubmittedForm ? () => handleScore(lastSubmittedForm) : null}
+            error={error}
+          />
+          <HistoryPanel
+            history={history}
+            onSelect={(entry) => { setResult(entry.result); setUseCaseName(entry.name) }}
+            onClear={() => setHistory([])}
+          />
+        </>
       )}
       {loading && (
         <div className="thinking">
