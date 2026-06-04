@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { analytics } from '../utils/analytics'
 import './ComparePanel.css'
 
 const VERDICT_LABELS = { pursue: 'Pursue', derisk: 'De-risk first', notready: 'Not ready' }
@@ -34,7 +35,12 @@ export default function ComparePanel({ currentResult, currentName, history, curr
       <select
         className="compare-select"
         value={selectedId}
-        onChange={e => setSelectedId(e.target.value)}
+        onChange={e => {
+          const id = e.target.value
+          setSelectedId(id)
+          const selected = options.find(o => o.id === id)
+          if (selected) analytics.comparisonSelected({ overallDelta: currentResult.overall - selected.result.overall })
+        }}
       >
         <option value="">Select a prior run…</option>
         {options.map(e => (

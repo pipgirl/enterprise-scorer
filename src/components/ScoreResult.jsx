@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import ComparePanel from './ComparePanel'
+import { analytics } from '../utils/analytics'
 import './ScoreResult.css'
 
 const LABELS = { pursue: 'Pursue', derisk: 'De-risk first', notready: 'Not ready' }
@@ -68,7 +69,7 @@ export default function ScoreResult({ result, name, onReset, history, currentHis
 
       <div className="result-actions">
         <button className="reset-btn" onClick={onReset}>← Score another use case</button>
-        <button className="export-btn" onClick={() => window.print()}>Export / Print</button>
+        <button className="export-btn" onClick={() => { analytics.exportClicked({ overall: result.overall, verdict: result.verdict }); window.print() }}>Export / Print</button>
       </div>
     </div>
   )
