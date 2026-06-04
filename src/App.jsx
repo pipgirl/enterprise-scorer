@@ -4,6 +4,7 @@ import ScoreResult from './components/ScoreResult'
 import HistoryPanel from './components/HistoryPanel'
 import { parseAndValidateScoreResult } from './utils/scoreResultSchema'
 import { loadHistory, saveAssessment } from './utils/history'
+import { analytics } from './utils/analytics'
 import './App.css'
 
 const ANTHROPIC_MODEL = import.meta.env.VITE_ANTHROPIC_MODEL || 'claude-sonnet-4-6'
@@ -33,6 +34,8 @@ export default function App() {
     setUseCaseName(formData.name)
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), CLIENT_TIMEOUT_MS)
+    const startedAt = Date.now()
+    analytics.scoreStarted({ industry: formData.industry, approach: formData.approach })
 
     const prompt = `You are an enterprise AI readiness expert. Score this use case across four dimensions (0-25 each, total 100):
 1. Data readiness — quality, availability, labeling, ground truth reliability
@@ -75,12 +78,14 @@ Respond ONLY with valid JSON, no markdown, no preamble:
       const updated = saveAssessment(formData.name, parsed)
       setHistory(updated)
       setCurrentHistoryId(updated[0].id)
+      analytics.scoreCompleted({ overall: parsed.overall, verdict: parsed.verdict, durationMs: Date.now() - startedAt })
     } catch (e) {
       const isTimeout = e?.name === 'AbortError'
       const message = isTimeout
         ? `Scoring timed out after ${CLIENT_TIMEOUT_MS / 1000} seconds. Please retry.`
         : e?.message || 'Scoring failed. Please retry.'
       setError(message)
+      analytics.scoreFailed({ reason: isTimeout ? 'timeout' : 'error', durationMs: Date.now() - startedAt })
     } finally {
       clearTimeout(timeoutId)
       setLoading(false)
@@ -99,7 +104,12 @@ Respond ONLY with valid JSON, no markdown, no preamble:
           />
           <HistoryPanel
             history={history}
-            onSelect={(entry) => { setResult(entry.result); setUseCaseName(entry.name); setCurrentHistoryId(entry.id) }}
+            onSelect={(entry) => {
+              setResult(entry.result)
+              setUseCaseName(entry.name)
+              setCurrentHistoryId(entry.id)
+              analytics.historyEntrySelected({ verdict: entry.result.verdict, overall: entry.result.overall })
+            }}
             onClear={() => setHistory([])}
           />
         </>
