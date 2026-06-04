@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import './ScoreResult.css'
 
 const LABELS = { pursue: 'Pursue', derisk: 'De-risk first', notready: 'Not ready' }
+const CONFIDENCE_LABELS = { high: 'High confidence', medium: 'Medium confidence', low: 'Low confidence' }
 
 export default function ScoreResult({ result, name, onReset }) {
   const barsRef = useRef([])
@@ -35,6 +36,12 @@ export default function ScoreResult({ result, name, onReset }) {
               <div className="bar-fill" style={{ width: '0%' }} data-pct={Math.round((d.score/25)*100)} ref={el => barsRef.current[i] = el} />
             </div>
             <div className="dim-rationale">{d.rationale}</div>
+            <div className="dim-footer">
+              <span className={`confidence-badge confidence-${d.confidence}`}>
+                {CONFIDENCE_LABELS[d.confidence]}
+              </span>
+              <span className="dim-assumptions">Assumes: {d.assumptions}</span>
+            </div>
           </div>
         ))}
       </div>
